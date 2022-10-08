@@ -2,6 +2,8 @@ package br.com.nagata.dev.service;
 
 import br.com.nagata.dev.client.KafkaProducerClient;
 import br.com.nagata.dev.model.MessageRequest;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,8 @@ public class KafkaService {
   }
 
   public void sendMessage(MessageRequest request) {
-    kafkaProducerClient.doPublishDevOperationTopic(generateId(), request.getMessage());
+    kafkaProducerClient.doPublishDevOperationTopic(
+        generateId(), new ObjectMapper().convertValue(request, JsonNode.class));
   }
 
   private String generateId() {

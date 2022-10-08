@@ -1,6 +1,7 @@
 package br.com.nagata.dev.client;
 
 import br.com.nagata.dev.properties.KafkaProperties;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -15,21 +16,21 @@ import java.util.concurrent.TimeoutException;
 @Slf4j
 @Component
 public class KafkaProducerClient {
-  private final KafkaTemplate<String, String> kafkaTemplate;
+  private final KafkaTemplate<String, Object> kafkaTemplate;
   private final KafkaProperties kafkaProperties;
 
   @Autowired
   public KafkaProducerClient(
-      KafkaTemplate<String, String> kafkaTemplate, KafkaProperties kafkaProperties) {
+      KafkaTemplate<String, Object> kafkaTemplate, KafkaProperties kafkaProperties) {
     this.kafkaTemplate = kafkaTemplate;
     this.kafkaProperties = kafkaProperties;
   }
 
-  public void doPublishDevOperationTopic(String id, String message) {
-    ListenableFuture<SendResult<String, String>> future =
+  public void doPublishDevOperationTopic(String id, JsonNode message) {
+    ListenableFuture<SendResult<String, Object>> future =
         kafkaTemplate.send(kafkaProperties.getDevOperationTopic(), id, message);
     try {
-      SendResult<String, String> result = future.get(1, TimeUnit.MINUTES);
+      SendResult<String, Object> result = future.get(1, TimeUnit.MINUTES);
       log.info(
           "Message sent... Topic: '{}' Id: '{}' Message: '{}' registered to partition: '{}' at offset: '{}'",
           kafkaProperties.getDevOperationTopic(),

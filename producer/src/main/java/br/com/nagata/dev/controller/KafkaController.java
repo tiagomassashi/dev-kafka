@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/message")
+@RequestMapping("/api/v1/operations")
 public class KafkaController {
   private final KafkaService kafkaService;
 
@@ -20,8 +20,8 @@ public class KafkaController {
   }
 
   @PostMapping
-  public ResponseEntity<Void> sendMessage(@RequestBody MessageRequest request) {
+  public ResponseEntity<Void> asynchronousProcess(@RequestBody MessageRequest request) {
     kafkaService.sendMessage(request);
-    return ResponseEntity.ok().build();
+    return ResponseEntity.accepted().build();
   }
 }
