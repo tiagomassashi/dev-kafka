@@ -1,0 +1,21 @@
+# Propriedades da aplicacao Spring Boot
+spring:
+  main:
+    banner-mode: console
+  application:
+    name: consumer
+
+# Configuracao da aplicacao
+application:
+  backing-services:
+    kafka:
+      bootstrap-servers: localhost:9092
+      dev-operation-topic: dev-operation-topic
+      dev-status-topic: dev-status-topic
+
+# Server
+server:
+  port: 8082
+  servlet:
+    context-path: /consumer
+
