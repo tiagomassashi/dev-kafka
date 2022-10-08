@@ -2,13 +2,10 @@ package br.com.nagata.dev.properties;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.config.SaslConfigs;
-import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -28,7 +25,7 @@ public class KafkaProperties {
     configs.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
     configs.put(ProducerConfig.CLIENT_ID_CONFIG, DEV_KAFKA_PRODUCER_ID);
     configs.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-    configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+    configs.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
     configs.put(ProducerConfig.ACKS_CONFIG, "all");
     configs.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, Boolean.TRUE);
     configs.put(ProducerConfig.LINGER_MS_CONFIG, 0);

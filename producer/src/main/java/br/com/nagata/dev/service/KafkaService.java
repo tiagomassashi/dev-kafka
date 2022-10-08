@@ -22,7 +22,7 @@ public class KafkaService {
 
   public void sendMessage(MessageRequest request) {
     kafkaProducerClient.doPublishDevOperationTopic(
-        generateId(), new ObjectMapper().convertValue(request, JsonNode.class));
+        generateId(), new ObjectMapper().convertValue(request, JsonNode.class).toString());
   }
 
   private String generateId() {
