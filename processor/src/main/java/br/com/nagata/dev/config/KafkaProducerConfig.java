@@ -37,7 +37,6 @@ public class KafkaProducerConfig {
     var configs = new HashMap<String, Object>();
     configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getBootstrapServers());
     configs.put(AdminClientConfig.SECURITY_PROTOCOL_CONFIG, SecurityProtocol.SASL_PLAINTEXT.name);
-
     return new KafkaAdmin(configs);
   }
 }

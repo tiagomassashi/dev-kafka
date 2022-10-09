@@ -1,5 +1,6 @@
 package br.com.nagata.dev.service;
 
+import br.com.nagata.dev.exception.BusinessException;
 import br.com.nagata.dev.model.ApplicationLog;
 import br.com.nagata.dev.model.dto.MessageRequestDTO;
 import br.com.nagata.dev.repository.ApplicationLogRepository;
@@ -22,17 +23,17 @@ public class KafkaService {
     this.mapper = mapper;
   }
 
-  public void saveLog(String id, String message) {
+  public void saveLog(String id, String message) throws BusinessException {
     repository.save(new ApplicationLog(id, jsonToObject(message)));
   }
 
-  private MessageRequestDTO jsonToObject(String message) {
+  private MessageRequestDTO jsonToObject(String message) throws BusinessException {
     try {
       return mapper.convertValue(
           mapper.readValue(message, JsonNode.class), MessageRequestDTO.class);
     } catch (JsonProcessingException e) {
       log.error("JsonProcessingException: {}", e.getMessage());
-      throw new RuntimeException(e);
+      throw new BusinessException(e.getMessage(), e.getCause());
     }
   }
 }

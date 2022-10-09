@@ -1,6 +1,7 @@
 package br.com.nagata.dev.service;
 
 import br.com.nagata.dev.client.KafkaProducerClient;
+import br.com.nagata.dev.exception.BusinessException;
 import br.com.nagata.dev.model.dto.MessageRequestDTO;
 import br.com.nagata.dev.model.enums.StatusEnum;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,11 +25,11 @@ public class KafkaService {
     this.mapper = mapper;
   }
 
-  public void sendMessage(String id, String message) {
-    kafkaProducerClient.doPublishDevStatusTopic(id, validateMessage(message));
+  public void sendMessage(String id, String message) throws BusinessException {
+    kafkaProducerClient.doPublishDevStatusTopic(id, processMessage(message));
   }
 
-  private String validateMessage(String message) {
+  private String processMessage(String message) throws BusinessException {
     try {
       MessageRequestDTO object =
           mapper.convertValue(mapper.readValue(message, JsonNode.class), MessageRequestDTO.class);
@@ -42,7 +43,7 @@ public class KafkaService {
       return mapper.convertValue(object, JsonNode.class).toString();
     } catch (JsonProcessingException e) {
       log.error("JsonProcessingException: {}", e.getMessage());
-      throw new RuntimeException(e);
+      throw new BusinessException(e.getMessage(), e.getCause());
     }
   }
 }

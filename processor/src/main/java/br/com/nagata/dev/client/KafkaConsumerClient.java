@@ -1,5 +1,6 @@
 package br.com.nagata.dev.client;
 
+import br.com.nagata.dev.exception.BusinessException;
 import br.com.nagata.dev.service.KafkaService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -20,10 +21,11 @@ public class KafkaConsumerClient {
   }
 
   @KafkaListener(topics = "${application.backing-services.kafka.dev-operation-topic}")
-  public void messageListener(
+  public void doSubscribeDevOperationTopic(
       @Payload String payload,
       Acknowledgment acknowledgment,
-      ConsumerRecord<String, Object> consumerRecord) {
+      ConsumerRecord<String, Object> consumerRecord)
+      throws BusinessException {
     log.info(
         "Message received... Topic: 'dev-operation-topic' Id: '{}' Message: '{}'",
         consumerRecord.key(),

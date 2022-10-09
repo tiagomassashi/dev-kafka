@@ -1,4 +1,4 @@
-# Propriedades da aplicacao Spring Boot
+# Application properties Spring Boot
 spring:
   main:
     banner-mode: console
@@ -12,7 +12,7 @@ spring:
     init:
       mode: always
 
-# Configuracao da aplicacao
+# Application configuration
 application:
   backing-services:
     kafka:
@@ -32,7 +32,7 @@ server:
   servlet:
     context-path: /consumer
 
-# Configuracao do banco de dados
+# Database configuration
 spring.jpa:
   show-sql: true
   generate-ddl: true

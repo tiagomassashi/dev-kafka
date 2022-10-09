@@ -38,7 +38,6 @@ public class KafkaConsumerConfig {
     listener.getContainerProperties().setMissingTopicsFatal(Boolean.FALSE);
     listener.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
     listener.getContainerProperties().setSyncCommits(Boolean.TRUE);
-
     return listener;
   }
 }

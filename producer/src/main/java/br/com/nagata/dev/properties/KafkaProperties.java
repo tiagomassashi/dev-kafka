@@ -30,7 +30,6 @@ public class KafkaProperties {
     configs.put(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, Boolean.TRUE);
     configs.put(ProducerConfig.LINGER_MS_CONFIG, 0);
     configs.putAll(saslConfigs());
-
     return configs;
   }
 
@@ -42,7 +41,6 @@ public class KafkaProperties {
     configs.put(SaslConfigs.SASL_KERBEROS_MIN_TIME_BEFORE_RELOGIN, SaslConfigs.DEFAULT_KERBEROS_MIN_TIME_BEFORE_RELOGIN);
     configs.put(SaslConfigs.SASL_KERBEROS_KINIT_CMD, SaslConfigs.DEFAULT_KERBEROS_KINIT_CMD);
     configs.put(SaslConfigs.SASL_KERBEROS_SERVICE_NAME, "kafka");
-
     return configs;
   }
 }

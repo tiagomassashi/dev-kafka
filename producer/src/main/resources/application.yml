@@ -1,11 +1,11 @@
-# Propriedades da aplicacao Spring Boot
+# Application properties Spring Boot
 spring:
   main:
     banner-mode: console
   application:
     name: producer
 
-# Configuracao da aplicacao
+# Application configuration
 application:
   backing-services:
     kafka:
@@ -17,4 +17,3 @@ server:
   port: 8080
   servlet:
     context-path: /producer
-
