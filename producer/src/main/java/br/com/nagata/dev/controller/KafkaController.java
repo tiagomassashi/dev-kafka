@@ -1,6 +1,6 @@
 package br.com.nagata.dev.controller;
 
-import br.com.nagata.dev.model.MessageRequest;
+import br.com.nagata.dev.model.dto.MessageRequestDTO;
 import br.com.nagata.dev.service.KafkaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class KafkaController {
   }
 
   @PostMapping
-  public ResponseEntity<Void> asynchronousProcess(@RequestBody MessageRequest request) {
+  public ResponseEntity<Void> asynchronousProcess(@RequestBody MessageRequestDTO request) {
     kafkaService.sendMessage(request);
     return ResponseEntity.accepted().build();
   }

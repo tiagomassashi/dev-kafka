@@ -1,7 +1,8 @@
 package br.com.nagata.dev.service;
 
 import br.com.nagata.dev.client.KafkaProducerClient;
-import br.com.nagata.dev.model.MessageRequest;
+import br.com.nagata.dev.model.dto.MessageRequestDTO;
+import br.com.nagata.dev.model.enums.StatusEnum;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ public class KafkaService {
     this.kafkaProducerClient = kafkaProducerClient;
   }
 
-  public void sendMessage(MessageRequest request) {
+  public void sendMessage(MessageRequestDTO request) {
+    request.setStatus(StatusEnum.IN_PROGRESS);
     kafkaProducerClient.doPublishDevOperationTopic(
         generateId(), new ObjectMapper().convertValue(request, JsonNode.class).toString());
   }
